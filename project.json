@@ -1,0 +1,63 @@
+{
+    "name": "apps_test",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "sourceRoot": "apps/apps_test/src",
+    "targets": {
+      "build": {
+        "cache": true,
+        "executor": "@monodon/rust:build",
+        "outputs": [
+          "{options.target-dir}"
+        ],
+        "options": {
+          "target-dir": "dist/target/apps_test"
+        },
+        "configurations": {
+          "production": {
+            "release": true
+          }
+        }
+      },
+      "test": {
+        "cache": true,
+        "executor": "@monodon/rust:test",
+        "outputs": [
+          "{options.target-dir}"
+        ],
+        "options": {
+          "target-dir": "dist/target/apps_test"
+        },
+        "configurations": {
+          "production": {
+            "release": true
+          }
+        }
+      },
+      "lint": {
+        "cache": true,
+        "executor": "@monodon/rust:lint",
+        "outputs": [
+          "{options.target-dir}"
+        ],
+        "options": {
+          "target-dir": "dist/target/apps_test"
+        }
+      },
+      "run": {
+        "executor": "@monodon/rust:run",
+        "outputs": [
+          "{options.target-dir}"
+        ],
+        "options": {
+          "target-dir": "dist/target/apps_test"
+        },
+        "configurations": {
+          "production": {
+            "release": true
+          }
+        }
+      }
+    },
+    "tags": []
+  }
