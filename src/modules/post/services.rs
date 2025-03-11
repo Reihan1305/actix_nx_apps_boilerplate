@@ -1,20 +1,38 @@
-use r2d2_redis::r2d2::Pool;
-use sqlx::query_as;
-
 use crate::DbAppState;
 
-use super::post_models::Post;
+use super::{models::Post, query::PostQuery};
+pub struct PostServices;
 
-pub async fn get_all_post_query(db: &DbAppState)->Result<Post,sqlx::error> {
-    match query_as!(
-        Post,
-        r#"SELECT * FROM post ORDER BY id"#,
-    )
-    .fetch_all(db)
-    .await{
-        Ok(post)=>Ok(post),
-        Err(error)=>{
-            Err(error)
+impl PostServices{
+    pub async fn get_all_post_query(db: &DbAppState)->Result<Vec<Post>,String> {
+        let post_query=  PostQuery::get_all_posts(db).await;
+
+        match post_query{
+            Ok(data)=> {
+                if data.len() == 0{
+                    Err(
+                        String::from("data not found")
+                    )
+                }else {
+                    Ok(data)
+                }
+            },
+            Err(error)=>{
+                Err(format!("{}",error))
+            }
         }
     }
+
+    pub async fn get_post_by_id(db:&DbAppState,post_id: i32) -> Result<Post,String>{
+        let post_query=  PostQuery::get_post_by_id(db,post_id).await;
+
+        match post_query{
+            Ok(data)=> Ok(data),
+            Err(error)=>{
+                Err(format!("{}",error))
+            }
+        }
+    }
+
+
 }

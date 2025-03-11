@@ -1,4 +1,3 @@
-use sqlx::types::chrono::NaiveDateTime;
 use serde::{Serialize,Deserialize};
 use validator::Validate;
 
@@ -6,9 +5,7 @@ use validator::Validate;
 pub struct Post {
     pub id: i32,
     pub title: String,
-    pub content: String,
-    pub create_at: Option<NaiveDateTime>,
-    pub updated_at: Option<NaiveDateTime>,
+    pub content: String
 }
 
 #[derive(Serialize,Deserialize,Validate)]

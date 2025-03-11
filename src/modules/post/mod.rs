@@ -1,3 +1,4 @@
-pub mod post_models;
-pub mod post_handler;
-pub mod post_service;
+pub mod models;
+pub mod handler;
+pub mod services;
+pub mod query;
